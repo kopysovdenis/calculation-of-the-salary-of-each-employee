@@ -35,9 +35,7 @@ public class Sales extends Employee {
 
     @Override
     public double getSalary() {
-        double salary = super.getSalary();
-
-        return salary;
+        return super.getSalary() + this.getBonus();
     }
 
     @Override
@@ -45,7 +43,6 @@ public class Sales extends Employee {
         SimpleQueue<BaseEmployee> stack = new SimpleQueue<>();
         stack.addAll(this.childEmployee);
         double fullSum = 0.0;
-
 
         while (!stack.isEmpty()) {
             BaseEmployee employee = stack.remove();
