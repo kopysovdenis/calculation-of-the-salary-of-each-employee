@@ -1,24 +1,16 @@
 package model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import stack.SimpleQueue;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Builder
 @AllArgsConstructor
-public class Sales extends Employee {
+public class Sales extends Manager {
 
-    public Sales() {
-        super(0.01, 0.35);
-    }
-
-    @Getter
-    @Setter
-    private double percentageAllSalaryFromChild = 0.005;
 
     @Getter
     @Setter
@@ -28,18 +20,26 @@ public class Sales extends Employee {
     @Setter
     private List<BaseEmployee> childEmployee;
 
+    public Sales() {
+        super(0.01, 0.35, 0.005);
+    }
+
+    public Sales(LocalDate date, List<BaseEmployee> list) {
+        super(0.01, 0.35, 0.005, date, list);
+    }
+
     @Override
     public boolean hasChief() {
-        return !childEmployee.isEmpty();
+        return childEmployee != null && !childEmployee.isEmpty();
     }
 
     @Override
-    public double getSalary() {
-        return super.getSalary() + this.getBonus();
+    public double getSalary(LocalDate date) {
+        return super.getSalary(date) + this.getBonus(date);
     }
 
     @Override
-    public double getBonus() {
+    public double getBonus(LocalDate date) {
         SimpleQueue<BaseEmployee> stack = new SimpleQueue<>();
         stack.addAll(this.childEmployee);
         double fullSum = 0.0;
@@ -47,10 +47,10 @@ public class Sales extends Employee {
         while (!stack.isEmpty()) {
             BaseEmployee employee = stack.remove();
 
-            fullSum = fullSum + employee.getSalary() * percentageAllSalaryFromChild;
+            fullSum = fullSum + employee.getSalary(date) * this.percentageAllSalaryFromChild;
 
             if (employee.hasChief()) {
-                fullSum = fullSum + employee.getBaseSalaryRate()*percentageAllSalaryChiefFromChild;
+                fullSum = fullSum + employee.getBaseSalaryRate() * percentageAllSalaryChiefFromChild;
             }
 
             if (!employee.getChildEmployee().isEmpty()) {

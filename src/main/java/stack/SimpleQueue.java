@@ -9,12 +9,14 @@ public class SimpleQueue<T> implements Queue<T> {
 
     @Override
     public void add(T item) {
-        list.add(item);
+        if (item != null)
+            list.add(item);
     }
 
     @Override
     public void addAll(List<T> items) {
-        list.addAll(items);
+        if (items != null)
+            list.addAll(items);
     }
 
     @Override

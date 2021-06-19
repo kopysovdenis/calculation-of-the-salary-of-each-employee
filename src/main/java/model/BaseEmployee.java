@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BaseEmployee {
@@ -10,13 +11,11 @@ public interface BaseEmployee {
         return baseSalaryRate;
     }
 
-    double getSalary();
+    double getSalary(LocalDate date);
+
+    double getBonus(LocalDate date);
 
     boolean hasChief();
 
     List<BaseEmployee> getChildEmployee();
-
-    long getBonusFromChildren();
-
-    double getBonus();
 }

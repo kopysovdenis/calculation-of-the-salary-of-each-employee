@@ -1,23 +1,37 @@
 package model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee implements BaseEmployee{
+public class Employee implements BaseEmployee {
 
     public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage) {
         this.salaryIncreasePercentage = salaryIncreasePercentage;
         this.salaryIncreaseLimitPercentage = salaryIncreaseLimitPercentage;
     }
 
+    public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, LocalDate startWorkToCompany) {
+        this.salaryIncreasePercentage = salaryIncreasePercentage;
+        this.salaryIncreaseLimitPercentage = salaryIncreaseLimitPercentage;
+        this.startWorkToCompany = startWorkToCompany;
+    }
+
+    public Employee(LocalDate startWorkToCompany) {
+        this.startWorkToCompany = startWorkToCompany;
+    }
+
+
     @Getter
     @Setter
-    private Date startWorkToCompany;
+    private LocalDate startWorkToCompany;
 
     @Setter
     private long workExperience;
@@ -32,21 +46,23 @@ public class Employee implements BaseEmployee{
     @Setter
     private double salaryIncreaseLimit = this.getBaseSalaryRate() * salaryIncreaseLimitPercentage;
 
-    private double salary;
 
-    public long getWorkExperience() {
-        return (new Date().getTime() - this.startWorkToCompany.getTime())/(365L * 24 * 60 * 60 * 1000);
+    public long getWorkExperience(LocalDate date) {
+        return ChronoUnit.YEARS.between(startWorkToCompany, date);
     }
 
     @Override
-    public double getSalary() {
-        long workExperienceYear = this.getWorkExperience();
-        double increaseForYear = this.getBaseSalaryRate() * salaryIncreasePercentage;
+    public double getSalary(LocalDate date) {
+        long workExperienceYear = this.getWorkExperience(date);
+        if (workExperienceYear < 0) {
+            throw new IllegalArgumentException("The requested date cannot be less than the start date");
+        }
+        double increaseForYear = baseSalaryRate * salaryIncreasePercentage;
         var increaseForWork = increaseForYear * workExperienceYear;
-        if (increaseForWork > this.salaryIncreaseLimit )
-            return salary + salaryIncreaseLimit;
+        if (increaseForWork > this.salaryIncreaseLimit)
+            return baseSalaryRate + salaryIncreaseLimit;
         else
-            return salary + increaseForWork;
+            return baseSalaryRate + increaseForWork;
     }
 
     @Override
@@ -60,11 +76,7 @@ public class Employee implements BaseEmployee{
     }
 
     @Override
-    public long getBonusFromChildren() {
-        return 0;
-    }
-    @Override
-    public double getBonus() {
+    public double getBonus(LocalDate date) {
         return 0;
     }
 }

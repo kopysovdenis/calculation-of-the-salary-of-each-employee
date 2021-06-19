@@ -3,6 +3,7 @@ package model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Manager extends Employee {
@@ -16,9 +17,20 @@ public class Manager extends Employee {
         this.percentageAllSalaryFromChild = percentageAllSalaryFromChild;
     }
 
+    public Manager(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, double percentageAllSalaryFromChild, LocalDate date, List<BaseEmployee> childEmployee) {
+        super(salaryIncreasePercentage, salaryIncreaseLimitPercentage, date);
+        this.percentageAllSalaryFromChild = percentageAllSalaryFromChild;
+        this.childEmployee = childEmployee;
+    }
+
+    public Manager(LocalDate startWorkToCompany, List<BaseEmployee> childEmployee) {
+        super(0.05, 0.4, startWorkToCompany);
+        this.childEmployee = childEmployee;
+    }
+
     @Getter
     @Setter
-    private double percentageAllSalaryFromChild = 0.005;
+    protected double percentageAllSalaryFromChild = 0.005;
 
     @Getter
     @Setter
@@ -30,14 +42,18 @@ public class Manager extends Employee {
     }
 
     @Override
-    public double getSalary() {
-        return super.getSalary() + getBonus();
+    public double getSalary(LocalDate date) {
+        return super.getSalary(date) + getBonus(date);
     }
 
     @Override
-    public double getBonus() {
-        return childEmployee.stream()
-                .mapToDouble(BaseEmployee::getSalary)
-                .sum() * percentageAllSalaryFromChild;
+    public double getBonus(LocalDate date) {
+        double fullSum = 0;
+
+        for (BaseEmployee employee : childEmployee) {
+            fullSum = fullSum + employee.getSalary(date);
+        }
+
+        return fullSum * percentageAllSalaryFromChild;
     }
 }
