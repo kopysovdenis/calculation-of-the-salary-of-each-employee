@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static utils.Const.SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_EMPLOYEE;
+import static utils.Const.SALARY_INCREASE_PERCENTAGE_FOR_EMPLOYEE;
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee implements BaseEmployee {
@@ -37,10 +40,10 @@ public class Employee implements BaseEmployee {
     private long workExperience;
 
     @Getter
-    private double salaryIncreasePercentage = 0.03;
+    private double salaryIncreasePercentage = SALARY_INCREASE_PERCENTAGE_FOR_EMPLOYEE;
 
     @Getter
-    private double salaryIncreaseLimitPercentage = 0.3;
+    private double salaryIncreaseLimitPercentage = SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_EMPLOYEE;
 
     @Getter
     @Setter

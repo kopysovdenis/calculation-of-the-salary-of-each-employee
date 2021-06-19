@@ -8,24 +8,23 @@ import stack.SimpleQueue;
 import java.time.LocalDate;
 import java.util.List;
 
+import static utils.Const.*;
+
 @AllArgsConstructor
 public class Sales extends Manager {
 
-
-    @Getter
-    @Setter
-    private double percentageAllSalaryChiefFromChild = 0.01;
+    private double percentageAllSalaryChiefFromChild = PERCENTAGE_ALL_SALARY_CHIEF_FROM_CHILD;
 
     @Getter
     @Setter
     private List<BaseEmployee> childEmployee;
 
     public Sales() {
-        super(0.01, 0.35, 0.005);
+        super(SALARY_INCREASE_PERCENTAGE_FOR_SALES, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_SALES, PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_SALES);
     }
 
     public Sales(LocalDate date, List<BaseEmployee> list) {
-        super(0.01, 0.35, 0.005, date, list);
+        super(SALARY_INCREASE_PERCENTAGE_FOR_SALES, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_SALES, PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_SALES, date, list);
     }
 
     @Override
@@ -42,12 +41,12 @@ public class Sales extends Manager {
     public double getBonus(LocalDate date) {
         SimpleQueue<BaseEmployee> stack = new SimpleQueue<>();
         stack.addAll(this.childEmployee);
-        double fullSum = 0.0;
+        double fullSum = 0;
 
         while (!stack.isEmpty()) {
             BaseEmployee employee = stack.remove();
 
-            fullSum = fullSum + employee.getSalary(date) * this.percentageAllSalaryFromChild;
+            fullSum = fullSum + employee.getSalary(date) * percentageAllSalaryFromChild;
 
             if (employee.hasChief()) {
                 fullSum = fullSum + employee.getBaseSalaryRate() * percentageAllSalaryChiefFromChild;

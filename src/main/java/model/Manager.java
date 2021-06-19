@@ -6,10 +6,12 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
+import static utils.Const.*;
+
 public class Manager extends Employee {
 
     public Manager() {
-        super(0.05, 0.4);
+        super(SALARY_INCREASE_PERCENTAGE_FOR_MANAGER, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_MANAGER);
     }
 
     public Manager(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, double percentageAllSalaryFromChild) {
@@ -24,13 +26,13 @@ public class Manager extends Employee {
     }
 
     public Manager(LocalDate startWorkToCompany, List<BaseEmployee> childEmployee) {
-        super(0.05, 0.4, startWorkToCompany);
+        super(SALARY_INCREASE_PERCENTAGE_FOR_MANAGER, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_MANAGER, startWorkToCompany);
         this.childEmployee = childEmployee;
     }
 
     @Getter
     @Setter
-    protected double percentageAllSalaryFromChild = 0.005;
+    protected double percentageAllSalaryFromChild = PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_MANAGER;
 
     @Getter
     @Setter
