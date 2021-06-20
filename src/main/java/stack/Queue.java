@@ -3,9 +3,11 @@ package stack;
 import java.util.List;
 
 public interface Queue<T> {
-    void add(T item);   // добавить элемент в конец очереди
+    void add(T item);
+
     void addAll(List<T> items);
-    T remove();// извлечение элемента из начала очереди
+
+    T remove();
 
     boolean isEmpty();
 }

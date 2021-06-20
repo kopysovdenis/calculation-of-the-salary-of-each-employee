@@ -1,8 +1,6 @@
 package model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import stack.SimpleQueue;
 
 import java.time.LocalDate;
@@ -14,10 +12,6 @@ import static utils.Const.*;
 public class Sales extends Manager {
 
     private double percentageAllSalaryChiefFromChild = PERCENTAGE_ALL_SALARY_CHIEF_FROM_CHILD;
-
-    @Getter
-    @Setter
-    private List<BaseEmployee> childEmployee;
 
     public Sales() {
         super(SALARY_INCREASE_PERCENTAGE_FOR_SALES, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_SALES, PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_SALES);
@@ -49,7 +43,7 @@ public class Sales extends Manager {
             fullSum = fullSum + employee.getSalary(date) * percentageAllSalaryFromChild;
 
             if (employee.hasChief()) {
-                fullSum = fullSum + employee.getBaseSalaryRate() * percentageAllSalaryChiefFromChild;
+                fullSum = fullSum + employee.baseSalaryRate * percentageAllSalaryChiefFromChild;
             }
 
             if (!employee.getChildEmployee().isEmpty()) {

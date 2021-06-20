@@ -13,9 +13,9 @@ import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ManagerTest extends BaseTest {
+class SalesTest extends BaseTest {
 
-    Manager manager;
+    Sales sales;
     LocalDate startWork;
     LocalDate findDate;
     List<BaseEmployee> employees = new ArrayList<>();
@@ -23,22 +23,23 @@ class ManagerTest extends BaseTest {
     @BeforeEach
     void setUp() {
         startWork = LocalDate.of(2005, 2, 14);
-        manager = getManager(startWork, employees);
-    }
-
-    @Test
-    void hasChief() {
-        findDate = LocalDate.of(2015, 2, 14);
-        manager.setChildEmployee(singletonList(getEmployee(findDate)));
-        boolean hasChief = manager.hasChief();
-        assertTrue(hasChief);
+        sales = getSales(startWork, employees);
     }
 
     @Test
     void getSalary() {
         findDate = LocalDate.of(2015, 2, 14);
-        double salaryValue = manager.getSalary(findDate);
-        assertEquals(salaryValue, 140);
+        double salaryValue = sales.getSalary(findDate);
+        assertEquals(salaryValue, 110);
+    }
+
+    @Test
+    void hasChief() {
+        findDate = LocalDate.of(2015, 2, 14);
+        employees.add(getEmployee(findDate));
+        sales.setChildEmployee(employees);
+        boolean hasChief = sales.hasChief();
+        assertTrue(hasChief);
     }
 
     @Test
@@ -49,23 +50,23 @@ class ManagerTest extends BaseTest {
         assertEquals(employeeSalary, 130);
 
         employees.add(employee);
-        manager.setChildEmployee(employees);
+        sales.setChildEmployee(employees);
 
-        double salesBonus = manager.getBonus(findDate);
-        assertEquals(salesBonus, 0.65);
+        double salesBonus = sales.getBonus(findDate);
+        assertEquals(salesBonus, 0.39);
     }
 
     @Test
     void getBonusForManager() {
         findDate = LocalDate.of(2015, 2, 14);
-        Manager childrenManager = getManager(startWork, emptyList());
-        double employeeSalary = childrenManager.getSalary(findDate);
+        Manager manager = getManager(startWork, emptyList());
+        double employeeSalary = manager.getSalary(findDate);
         assertEquals(employeeSalary, 140);
 
-        manager.setChildEmployee(singletonList(childrenManager));
+        sales.setChildEmployee(singletonList(manager));
 
-        double salesBonus = manager.getBonus(findDate);
-        assertEquals(salesBonus, 0.7000000000000001);
+        double salesBonus = sales.getBonus(findDate);
+        assertEquals(salesBonus, 0.42);
     }
 
     @Test
@@ -75,9 +76,9 @@ class ManagerTest extends BaseTest {
         double employeeSalary = childrenSales.getSalary(findDate);
         assertEquals(employeeSalary, 110);
 
-        manager.setChildEmployee(singletonList(childrenSales));
+        sales.setChildEmployee(singletonList(childrenSales));
 
-        double salesBonus = manager.getBonus(findDate);
-        assertEquals(salesBonus, 0.55);
+        double salesBonus = sales.getBonus(findDate);
+        assertEquals(salesBonus, 0.33);
     }
 }

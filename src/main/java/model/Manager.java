@@ -36,7 +36,7 @@ public class Manager extends Employee {
 
     @Getter
     @Setter
-    private List<BaseEmployee> childEmployee;
+    protected List<BaseEmployee> childEmployee;
 
     @Override
     public boolean hasChief() {

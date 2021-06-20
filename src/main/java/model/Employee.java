@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import static utils.Const.SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_EMPLOYEE;
@@ -19,15 +20,19 @@ public class Employee implements BaseEmployee {
     public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage) {
         this.salaryIncreasePercentage = salaryIncreasePercentage;
         this.salaryIncreaseLimitPercentage = salaryIncreaseLimitPercentage;
+        this.salaryIncreaseLimit = baseSalaryRate * salaryIncreaseLimitPercentage;
     }
 
     public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, LocalDate startWorkToCompany) {
+        validationDate(startWorkToCompany);
         this.salaryIncreasePercentage = salaryIncreasePercentage;
         this.salaryIncreaseLimitPercentage = salaryIncreaseLimitPercentage;
+        this.salaryIncreaseLimit = baseSalaryRate * salaryIncreaseLimitPercentage;
         this.startWorkToCompany = startWorkToCompany;
     }
 
     public Employee(LocalDate startWorkToCompany) {
+        validationDate(startWorkToCompany);
         this.startWorkToCompany = startWorkToCompany;
     }
 
@@ -47,7 +52,7 @@ public class Employee implements BaseEmployee {
 
     @Getter
     @Setter
-    private double salaryIncreaseLimit = this.getBaseSalaryRate() * salaryIncreaseLimitPercentage;
+    private double salaryIncreaseLimit = baseSalaryRate * salaryIncreaseLimitPercentage;
 
 
     public long getWorkExperience(LocalDate date) {
@@ -62,7 +67,7 @@ public class Employee implements BaseEmployee {
         }
         double increaseForYear = baseSalaryRate * salaryIncreasePercentage;
         var increaseForWork = increaseForYear * workExperienceYear;
-        if (increaseForWork > this.salaryIncreaseLimit)
+        if (increaseForWork > this.getSalaryIncreaseLimit())
             return baseSalaryRate + salaryIncreaseLimit;
         else
             return baseSalaryRate + increaseForWork;
@@ -75,11 +80,16 @@ public class Employee implements BaseEmployee {
 
     @Override
     public List<BaseEmployee> getChildEmployee() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public double getBonus(LocalDate date) {
         return 0;
+    }
+
+    private void validationDate(LocalDate date) {
+        if (date == null)
+            throw new IllegalArgumentException("the date of employment is incorrect");
     }
 }

@@ -1,7 +1,7 @@
 package utils;
 
 public class Const {
-    public static final int BASE_SALARY_RATE = 10;
+    public static final int BASE_SALARY_RATE = 100;
 
     public static final double SALARY_INCREASE_PERCENTAGE_FOR_EMPLOYEE = 0.03;
     public static final double SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_EMPLOYEE = 0.3;

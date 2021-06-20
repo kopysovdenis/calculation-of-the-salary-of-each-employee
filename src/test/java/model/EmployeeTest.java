@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 class EmployeeTest {
 
     Employee employee;
@@ -13,14 +16,21 @@ class EmployeeTest {
 
     @BeforeEach
     void setUp() {
-        startWork = LocalDate.of(2015, 2, 14);
-        findDate = LocalDate.of(2015, 2, 14);
+        startWork = LocalDate.of(2005, 2, 14);
         employee = new Employee(startWork);
     }
 
     @Test
+    void hasChief() {
+        findDate = LocalDate.of(2015, 2, 14);
+        boolean hasChief = employee.hasChief();
+        assertFalse(hasChief);
+    }
+
+    @Test
     void getSalary() {
-        var salary = employee.getSalary(findDate);
-        System.out.println(salary);
+        findDate = LocalDate.of(2015, 2, 14);
+        var salaryValue = employee.getSalary(findDate);
+        assertEquals(salaryValue, 130);
     }
 }
