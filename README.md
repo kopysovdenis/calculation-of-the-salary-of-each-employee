@@ -8,26 +8,39 @@ salary of all employees of the company as a whole)
 Given:
 
 There is a company, a company may have employees. An employee is characterized by name, date of employment, base rate (
-to simplify calculations, let this default value be the same for all types of employees). There are 3 types of employees
-- Employee, Manager, Sales. Each employee can have a boss. Each employee, except Employee, can have subordinates.
+to simplify calculations, let this default value be the same for all types of employees).
+
+There are 3 types of employees - Employee, Manager, Sales.
+
+Each employee can have a boss.
+
+Each employee, except Employee, can have subordinates.
 
 Employee's salary is the base rate plus 3% for each year of work in the company, but not more than 30% of the total
-allowance Manager's salary is the base rate plus 5% for each year of work in the company (but not more than 40% of the
-total bonus for seniority) plus 0.5% of the salary of all first-level subordinates Salary of Sales employee is the base
-rate plus 1% for each year of work in the company (but not more than 35% of the total allowance for seniority) plus 0.3%
-of the salary of all subordinates of all levels plus 1.0% bonus for each subordinate of all levels
+allowance
+
+Manager's salary is the base rate plus 5% for each year of work in the company (but not more than 40% of the total bonus
+for seniority) plus 0.5% of the salary of all first-level subordinates
+
+Salary of Sales employee is the base rate plus 1% for each year of work in the company (but not more than 35% of the
+total allowance for seniority) plus 0.3% of the salary of all subordinates of all levels plus 1.0% bonus for each
+subordinate of all levels
 
 Employees (except Employee) can have any number of subordinates of any kind.
 
 Required:
 
-Create the architecture of the classes that describe this model, as well as implement the algorithm for calculating the
+Create the architecture of the classes describing this model, as well as implement the algorithm for calculating the
 salary of each employee at an arbitrary point in time (as well as calculating the total salary of all employees of the
 company as a whole) (a simple user interface of your choice, in fact, only for starting calculations - it is not
 essential for of this task).
 
 The system should be unit-tested (not necessarily full coverage, but there should be exemplary tests to validate the
 business logic).
+
+In addition, you need to write (in English) a brief overview of your solution to the test problem, describing the
+architecture, its pros and cons (what can be improved or changed, or some other considerations for using the solution
+for real purposes).
 
 # Get start
 
