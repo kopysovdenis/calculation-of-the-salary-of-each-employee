@@ -1,21 +1,15 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import stack.SimpleQueue;
+import queue.QueueImpl;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static utils.Const.*;
 
-@AllArgsConstructor
 public class Sales extends Manager {
 
     private double percentageAllSalaryChiefFromChild = PERCENTAGE_ALL_SALARY_CHIEF_FROM_CHILD;
-
-    public Sales() {
-        super(SALARY_INCREASE_PERCENTAGE_FOR_SALES, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_SALES, PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_SALES);
-    }
 
     public Sales(LocalDate date, List<BaseEmployee> list) {
         super(SALARY_INCREASE_PERCENTAGE_FOR_SALES, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_SALES, PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_SALES, date, list);
@@ -33,12 +27,12 @@ public class Sales extends Manager {
 
     @Override
     public double getBonus(LocalDate date) {
-        SimpleQueue<BaseEmployee> stack = new SimpleQueue<>();
-        stack.addAll(this.childEmployee);
+        QueueImpl<BaseEmployee> queue = new QueueImpl<>();
+        queue.addAll(this.childEmployee);
         double fullSum = 0;
 
-        while (!stack.isEmpty()) {
-            BaseEmployee employee = stack.remove();
+        while (!queue.isEmpty()) {
+            BaseEmployee employee = queue.remove();
 
             fullSum = fullSum + employee.getSalary(date) * percentageAllSalaryFromChild;
 
@@ -47,7 +41,7 @@ public class Sales extends Manager {
             }
 
             if (!employee.getChildEmployee().isEmpty()) {
-                stack.addAll(employee.getChildEmployee());
+                queue.addAll(employee.getChildEmployee());
             }
         }
 

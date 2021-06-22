@@ -1,6 +1,5 @@
 package model;
 
-import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -30,11 +29,8 @@ public class Manager extends Employee {
         this.childEmployee = childEmployee;
     }
 
-    @Getter
-    @Setter
     protected double percentageAllSalaryFromChild = PERCENTAGE_ALL_SALARY_FROM_CHILD_FOR_MANAGER;
 
-    @Getter
     @Setter
     protected List<BaseEmployee> childEmployee;
 

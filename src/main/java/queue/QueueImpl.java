@@ -1,17 +1,11 @@
-package stack;
+package queue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleQueue<T> implements Queue<T> {
+public class QueueImpl<T> implements Queue<T> {
 
     private ArrayList<T> list = new ArrayList<>();
-
-    @Override
-    public void add(T item) {
-        if (item != null)
-            list.add(item);
-    }
 
     @Override
     public void addAll(List<T> items) {
@@ -27,9 +21,5 @@ public class SimpleQueue<T> implements Queue<T> {
     @Override
     public boolean isEmpty() {
         return list.isEmpty();
-    }
-
-    public boolean contains(T item) {
-        return list.contains(item);
     }
 }

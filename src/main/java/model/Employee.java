@@ -1,10 +1,5 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -13,8 +8,6 @@ import java.util.List;
 import static utils.Const.SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_EMPLOYEE;
 import static utils.Const.SALARY_INCREASE_PERCENTAGE_FOR_EMPLOYEE;
 
-@NoArgsConstructor
-@AllArgsConstructor
 public class Employee implements BaseEmployee {
 
     public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage) {
@@ -36,22 +29,12 @@ public class Employee implements BaseEmployee {
         this.startWorkToCompany = startWorkToCompany;
     }
 
-
-    @Getter
-    @Setter
     private LocalDate startWorkToCompany;
 
-    @Setter
-    private long workExperience;
-
-    @Getter
     private double salaryIncreasePercentage = SALARY_INCREASE_PERCENTAGE_FOR_EMPLOYEE;
 
-    @Getter
     private double salaryIncreaseLimitPercentage = SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_EMPLOYEE;
 
-    @Getter
-    @Setter
     private double salaryIncreaseLimit = baseSalaryRate * salaryIncreaseLimitPercentage;
 
 
@@ -67,7 +50,7 @@ public class Employee implements BaseEmployee {
         }
         double increaseForYear = baseSalaryRate * salaryIncreasePercentage;
         var increaseForWork = increaseForYear * workExperienceYear;
-        if (increaseForWork > this.getSalaryIncreaseLimit())
+        if (increaseForWork > salaryIncreaseLimit)
             return baseSalaryRate + salaryIncreaseLimit;
         else
             return baseSalaryRate + increaseForWork;
