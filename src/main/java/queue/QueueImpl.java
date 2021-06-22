@@ -3,6 +3,9 @@ package queue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * queue implementation
+ */
 public class QueueImpl<T> implements Queue<T> {
 
     private ArrayList<T> list = new ArrayList<>();

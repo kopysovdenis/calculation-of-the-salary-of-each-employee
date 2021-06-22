@@ -7,6 +7,9 @@ import java.util.List;
 
 import static utils.Const.*;
 
+/**
+ * Sales implementation
+ */
 public class Sales extends Manager {
 
     private double percentageAllSalaryChiefFromChild = PERCENTAGE_ALL_SALARY_CHIEF_FROM_CHILD;
@@ -16,15 +19,28 @@ public class Sales extends Manager {
     }
 
     @Override
-    public boolean hasChief() {
+    public boolean hasLeader() {
         return childEmployee != null && !childEmployee.isEmpty();
     }
 
+    /**
+     * <p>Receiving salary on the specified date</p>
+     * <p>The salary is formed from the main part and the bonus</p>
+     *
+     * @param date specific date
+     * @return salary
+     */
     @Override
     public double getSalary(LocalDate date) {
         return super.getSalary(date) + this.getBonus(date);
     }
 
+    /**
+     * Bonus calculation taking into account the salaries of all employees and leaders
+     *
+     * @param date specific date
+     * @return bonus
+     */
     @Override
     public double getBonus(LocalDate date) {
         QueueImpl<BaseEmployee> queue = new QueueImpl<>();
@@ -36,7 +52,7 @@ public class Sales extends Manager {
 
             fullSum = fullSum + employee.getSalary(date) * percentageAllSalaryFromChild;
 
-            if (employee.hasChief()) {
+            if (employee.hasLeader()) {
                 fullSum = fullSum + employee.baseSalaryRate * percentageAllSalaryChiefFromChild;
             }
 
