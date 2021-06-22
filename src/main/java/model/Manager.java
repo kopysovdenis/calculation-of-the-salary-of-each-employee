@@ -9,15 +9,6 @@ import static utils.Const.*;
 
 public class Manager extends Employee {
 
-    public Manager() {
-        super(SALARY_INCREASE_PERCENTAGE_FOR_MANAGER, SALARY_INCREASE_LIMIT_PERCENTAGE_FOR_MANAGER);
-    }
-
-    public Manager(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, double percentageAllSalaryFromChild) {
-        super(salaryIncreasePercentage, salaryIncreaseLimitPercentage);
-        this.percentageAllSalaryFromChild = percentageAllSalaryFromChild;
-    }
-
     public Manager(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, double percentageAllSalaryFromChild, LocalDate date, List<BaseEmployee> childEmployee) {
         super(salaryIncreasePercentage, salaryIncreaseLimitPercentage, date);
         this.percentageAllSalaryFromChild = percentageAllSalaryFromChild;
