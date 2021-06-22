@@ -10,12 +10,6 @@ import static utils.Const.SALARY_INCREASE_PERCENTAGE_FOR_EMPLOYEE;
 
 public class Employee implements BaseEmployee {
 
-    public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage) {
-        this.salaryIncreasePercentage = salaryIncreasePercentage;
-        this.salaryIncreaseLimitPercentage = salaryIncreaseLimitPercentage;
-        this.salaryIncreaseLimit = baseSalaryRate * salaryIncreaseLimitPercentage;
-    }
-
     public Employee(double salaryIncreasePercentage, double salaryIncreaseLimitPercentage, LocalDate startWorkToCompany) {
         validationDate(startWorkToCompany);
         this.salaryIncreasePercentage = salaryIncreasePercentage;
